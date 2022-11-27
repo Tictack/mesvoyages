@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -46,6 +47,12 @@ class VisiteType extends AbstractType
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Enregistrer'
+            ])
+            ->add('note', IntegerType::class, [
+                'attr' => [
+                    'min' => 0,
+                    'max' => 20
+                ]
             ])
         ;
     }
