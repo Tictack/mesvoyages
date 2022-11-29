@@ -10,8 +10,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
@@ -48,9 +48,6 @@ class Visite
      * @param ExecutionContextInterface $context
      */
     public function validate(ExecutionContextInterface $context){
-        $context->buildViolation("message d'erreur")
-                ->atPath('nom_champ')
-                ->addViolation();
         $image = $this->getImageFile();
         if($image != null && $image != ""){
             $tailleImage = @getimagesize($image);
@@ -85,6 +82,7 @@ class Visite
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Range(min = 0, max = 20)
      */
     private $note;
 
@@ -100,6 +98,7 @@ class Visite
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\GreaterThan(propertyPath="tempmin")
      */
     private $tempmax;
 
